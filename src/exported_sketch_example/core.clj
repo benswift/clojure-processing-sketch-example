@@ -5,8 +5,7 @@
 (defn create-and-run []
   (let [sketch (ExampleSketch.)]
     (PApplet/runSketch 
-      (into-array String [])
+      (into-array String ["Example Sketch"])
       sketch)))
 
-;; currently crashes :(
 (create-and-run)

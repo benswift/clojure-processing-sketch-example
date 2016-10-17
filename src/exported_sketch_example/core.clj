@@ -1,11 +1,9 @@
 (ns exported-sketch-example.core
-  (:import processing.core.PApplet ExampleSketch)
-  (:require [quil.core :as q]))
+  (:require [quil.core :as q]
+            [exported-sketch-example.sketches :as sk])
+  (:gen-class))
 
-(defn create-and-run []
-  (let [sketch (ExampleSketch.)]
-    (PApplet/runSketch 
-      (into-array String ["Example Sketch"])
-      sketch)))
+(def sketches (sk/create-all))
 
-(create-and-run)
+(defn -main [& args]
+  (sk/run (first (shuffle sketches))))

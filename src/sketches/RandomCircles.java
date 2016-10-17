@@ -24,7 +24,7 @@ public void draw() {
   float d = random(200);
   ellipse(random(width), random(height), d, d);
 }
-  public void settings() {  size(800, 600); }
+  public void settings() {  fullScreen(); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "RandomCircles" };
     if (passedArgs != null) {

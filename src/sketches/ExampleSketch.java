@@ -24,7 +24,7 @@ public void draw() {
   background(0);
   ellipse(width/2, height/2, width*sin(frameCount*0.03f), height*sin(frameCount*0.043f));
 }
-  public void settings() {  size(800, 600); }
+  public void settings() {  fullScreen(); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "ExampleSketch" };
     if (passedArgs != null) {

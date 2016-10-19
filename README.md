@@ -2,6 +2,8 @@
 
 An example of running exported Processing sketches from Clojure.
 
+**This is a work-in-progress**
+
 ## Usage
 
 Currently, getting the sketches into Clojure involves a bit of manual

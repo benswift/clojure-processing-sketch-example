@@ -6,6 +6,12 @@ An example of running exported Processing sketches from Clojure.
 
 ## Usage
 
+```
+lein run
+```
+
+## Adding new sketches
+
 Currently, getting the sketches into Clojure involves a bit of manual
 fiddling (although hopefully this will be fully automated in the
 future). The process is:

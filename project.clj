@@ -5,6 +5,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [quil "2.4.0"]]
+                 [org.processing/core "3.2.1"]
+                 [ddf.minim "2.2.0"]]
   :java-source-paths ["src/sketches"]
   :plugins [[lein-localrepo "0.5.3"]])

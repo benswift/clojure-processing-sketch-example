@@ -4,13 +4,10 @@
 
 (defn -main [& args]
   (let [sleep-dur 5000]
-    (sk/run-example-sketch)
+    ((:runner (first sk/sketches)))
     (Thread/sleep sleep-dur)
-    (sk/run-random-circles)
-    (Thread/sleep sleep-dur)
-    (sk/run-example-sketch)
-    (Thread/sleep sleep-dur)
-    (sk/run-random-circles)
+    ((:runner (second sk/sketches)))
     (Thread/sleep sleep-dur))
   (println "done, bye!")
   (System/exit 0))
+

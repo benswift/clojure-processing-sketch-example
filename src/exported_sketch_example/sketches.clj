@@ -23,8 +23,21 @@
   (atom {:uid (:uid (rand-nth sketches))
          :start-time (System/currentTimeMillis)}))
 
-(defn swap-current
+(def current-sketch
+  (atom {}))
+
+(defn set-current
   "set current sketch to uid's sketch"
   [uid]
-  (reset! current-sketch {:uid uid :start-time (System/currentTimeMillis)}))
+  (reset!
+   current-sketch
+   {:uid uid
+    :start-time (System/currentTimeMillis)}))
 
+(defn set-random
+  "set current sketch to uid's sketch"
+  [uid]
+  (reset!
+   current-sketch
+   {:uid (:uid (rand-nth sketches))
+    :start-time (System/currentTimeMillis)}))

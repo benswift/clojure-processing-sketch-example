@@ -32,11 +32,6 @@
    {:uid "u3333333" :runner (sketch-proxy MinimPlayPause) :weight 1}])
 
 (def current-sketch
-  "start with a random one, because why not?"
-  (atom {:uid (:uid (rand-nth sketches))
-         :start-time (System/currentTimeMillis)}))
-
-(def current-sketch
   (atom {}))
 
 (defn set-current

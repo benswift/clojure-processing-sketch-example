@@ -4,7 +4,7 @@ ArrayList<SketchCard> cards;
 
 // adapted from filesToArrayList() function by Docbones (GPL)
 // https://forum.processing.org/one/topic/listing-files-in-a-folder.html
-ArrayList filesInFolder(String folderPath) {
+ArrayList<String> filesInFolder(String folderPath) {
   ArrayList<String> filesList = new ArrayList<String>();
   File file = new File(dataPath(folderPath));
 
@@ -12,7 +12,7 @@ ArrayList filesInFolder(String folderPath) {
     File[] files = file.listFiles();
 
     for (File f: files) {
-      filesList.add(f.getName());
+      filesList.add(f.getAbsolutePath());
     }
   }
   filesList.sort(null);

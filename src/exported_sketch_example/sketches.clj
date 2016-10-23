@@ -28,8 +28,7 @@
 (def sketches
   [{:uid "u1111111" :runner (sketch-proxy ExampleSketch) :weight 1}
    {:uid "u2222222" :runner (sketch-proxy RandomCircles) :weight 1}
-   {:uid "u3333333" :runner (sketch-proxy MinimPlayPause) :weight 1}
-   {:uid "u4444444" :runner (sketch-proxy Jukebox) :weight 1}])
+   {:uid "u3333333" :runner (sketch-proxy MinimPlayPause) :weight 1}])
 
 (def current-sketch
   (atom {}))
@@ -49,3 +48,10 @@
    current-sketch
    {:uid (:uid (rand-nth sketches))
     :start-time (System/currentTimeMillis)}))
+
+(def jukebox-sketch
+  (proxy [Jukebox] []
+    (exitActual [])
+    (switchToSketch [uid]
+      (println "recieved" uid)
+      (proxy-super switchToSketch uid))))

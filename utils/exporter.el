@@ -15,6 +15,22 @@
 
 (export-sketches "/Users/ben/Code/clojure/clojure-processing-sketch-example/processing" "/tmp/sketches")
 
+(require 'dash)
+
+(defun process-jars (source-dir)
+  (let ((filter-fn
+         (lambda (s) (and (not (s-contains? "/jre/" s))
+                     (not (member (file-name-nondirectory s)
+                              '("core.jar"
+                                "gluegen-rt-natives-macosx-universal.jar"
+                                "gluegen-rt.jar"
+                                "jogl-all-natives-macosx-universal.jar"
+                                "jogl-all.jar")))))))
+    (-filter filter-fn
+             (directory-files-recursively source-dir "jar$"))))
+
+(-each (process-jars "/Users/ben/Code/clojure/clojure-processing-sketch-example/processing") #'message)
+
 (defun munge-data-folder-paths (directory)
   (-each
       (directory-files directory :full "java$")

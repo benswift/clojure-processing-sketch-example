@@ -1,4 +1,4 @@
-# exported-sketch-example
+# clojure-processing-sketch-example
 
 An example of running exported Processing sketches from Clojure.
 
@@ -22,10 +22,20 @@ future). The process is:
 2. find the `<SketchName>.java` in the exported application bundle,
    and copy it into `src/sketches`
 
-3. import the sketch into the `exported-sketch-example.sketches`
-   namespace in `src/exported_sketch_example/sketches.clj`
+3. import the sketch into the `clojure-processing-sketch-example.sketches`
+   namespace in `src/clojure_processing_sketch_example/sketches.clj`
 
 4. profit?
+
+## Alternative approaches
+
+There are a few ways this could be better, but I haven't got them
+working :(
+
+- load the exported sketch classes (and their dependencies) from the
+  jar file(s) created by the `processing-java --export` process, i.e.
+  don't require manually moving the `SketchName.java` file into the
+  `src/sketches` folder
 
 ## TODO
 
@@ -38,7 +48,7 @@ future). The process is:
    
 3. add a more sophisticated event loop than the sleepy `-main`
    function
-   
+
 ## License
 
 Copyright © 2016 Ben Swift

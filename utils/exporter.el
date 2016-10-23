@@ -9,7 +9,7 @@
                  (format "%s/%s.java" dest-dir (file-name-nondirectory fname))
                  :overwrite))))
 
-(export-sketches "/Users/ben/Code/clojure/exported-sketch-example/processing" "/tmp/sketches")
+(export-sketches "/Users/ben/Code/clojure/clojure-processing-sketch-example/processing" "/tmp/sketches")
 
 (defun munge-data-folder-paths (directory)
   (-each

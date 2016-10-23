@@ -27,7 +27,7 @@ public void setup() {
   // create the minim object (necessary to use the library)
   minim = new Minim(this);
   
-  player = minim.loadFile("/Users/ben/Code/clojure/exported-sketch-example/processing/MinimPlayPause/data/gong.mp3");
+  player = minim.loadFile("/Users/ben/Code/clojure/clojure-processing-sketch-example/processing/MinimPlayPause/data/gong.mp3");
   player.loop();
 }
 

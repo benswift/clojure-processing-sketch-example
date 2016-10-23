@@ -35,7 +35,7 @@ public ArrayList<String> filesInFolder(String folderPath) {
 
 public void loadCards(){
   cards = new ArrayList<SketchCard>(100);
-  ArrayList<String> files = filesInFolder("/Users/ben/Code/clojure/exported-sketch-example/processing/Jukebox/data");
+  ArrayList<String> files = filesInFolder("/Users/ben/Code/clojure/clojure-processing-sketch-example/processing/Jukebox/data");
   for (String filename : files) {
     cards.add(new SketchCard(filename,
                              width/(files.size()),

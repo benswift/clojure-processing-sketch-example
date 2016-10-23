@@ -2,13 +2,17 @@
   (:require [exported-sketch-example.sketches :as sk])
   (:gen-class))
 
+(defn run-for-duration
+  "run sketch for a certain duration, then kill"
+  [sketch-map sleep-dur]
+  (let [papplet (sk/run ((:runner sketch-map)))]
+    (Thread/sleep sleep-dur)
+(.exit papplet)))
+
 (defn -main [& args]
-  (let [sleep-dur 5000]
-    ((:runner (sk/sketches 2)))
-    (Thread/sleep sleep-dur)
-    ((:runner (first sk/sketches)))
-    (Thread/sleep sleep-dur)
-    ((:runner (second sk/sketches)))
-    (Thread/sleep sleep-dur))
+  (let [sleep-dur 2000]
+    (doseq [sketch sk/sketches]
+      (run-for-duration sketch sleep-dur)))
   (println "done, bye!")
   (System/exit 0))
+

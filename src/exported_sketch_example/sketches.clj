@@ -3,20 +3,26 @@
            ;; specific sketches
            ExampleSketch RandomCircles MinimPlayPause))
 
-(defmacro get-runner
-  "returns sketch runner function"
+(defmacro sketch-proxy
+  "create sketch proxy"
   [sketch]
   `(fn []
-     (PApplet/runSketch
-         (into-array String ["mysketch" "--present"])
-         (proxy [~sketch] []
-           (exitActual []
-             (proxy-super destroy))))))
+     (proxy [~sketch] []
+       (exitActual []
+         (proxy-super destroy)))))
+
+(defn run
+  "run sketch"
+  [sketch]
+  (PApplet/runSketch
+      (into-array String ["mysketch" "--present"])
+      sketch)
+  sketch)
 
 (def sketches
-  [{:uid "u1111111" :runner (get-runner ExampleSketch) :weight 1}
-   {:uid "u2222222" :runner (get-runner RandomCircles) :weight 1}
-   {:uid "u3333333" :runner (get-runner MinimPlayPause) :weight 1}])
+  [{:uid "u1111111" :runner (sketch-proxy ExampleSketch) :weight 1}
+   {:uid "u2222222" :runner (sketch-proxy RandomCircles) :weight 1}
+   {:uid "u3333333" :runner (sketch-proxy MinimPlayPause) :weight 1}])
 
 (def current-sketch
   "start with a random one, because why not?"

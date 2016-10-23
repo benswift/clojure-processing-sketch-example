@@ -1,13 +1,17 @@
 (defun export-sketches (source-dir dest-dir)
   (-each
-      (directory-files source-dir :full "[^.]$")
+      (directory-files source-dir :full "^[^.].*[^.]$")
     (lambda (fname)
-      (shell-command
-       (format "/usr/local/bin/processing-java --force --sketch=%s --export"
-               fname))
-      (copy-file (format "%s/application.macosx/source/%s.java" fname (file-name-nondirectory fname))
-                 (format "%s/%s.java" dest-dir (file-name-nondirectory fname))
-                 :overwrite))))
+      (let ((app-path (format "%s/application.macosx" fname))
+            (sketch-name (file-name-nondirectory fname)))
+        (when (file-directory-p app-path)
+          (delete-directory app-path :recursive))
+        (shell-command
+         (format "/usr/local/bin/processing-java --force --sketch=%s --export"
+                 fname))
+        (copy-file (format "%s/source/%s.java" app-path sketch-name)
+                   (format "%s/%s.java" dest-dir sketch-name)
+                   :overwrite)))))
 
 (export-sketches "/Users/ben/Code/clojure/clojure-processing-sketch-example/processing" "/tmp/sketches")
 

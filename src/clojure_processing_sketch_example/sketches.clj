@@ -3,12 +3,8 @@
            ;; specific sketches
            Jukebox ExampleSketch RandomCircles MinimPlayPause))
 
-
 (def current-sketch
-  (atom {})
-  "the one true sketch atom
-
-Should have {:keys [applet ]}]")
+  (atom {}))
 
 (defmacro sketch-proxy
   "create sketch proxy"

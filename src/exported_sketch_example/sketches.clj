@@ -19,6 +19,13 @@
       sketch)
   sketch)
 
+(defn run-for-duration
+  "run sketch for a certain duration, then kill"
+  [sketch-map sleep-dur]
+  (let [papplet (run ((:runner sketch-map)))]
+    (Thread/sleep sleep-dur)
+    (.exit papplet)))
+
 (def sketches
   [{:uid "u1111111" :runner (sketch-proxy ExampleSketch) :weight 1}
    {:uid "u2222222" :runner (sketch-proxy RandomCircles) :weight 1}

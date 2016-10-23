@@ -8,8 +8,7 @@
   [sketch]
   `(fn []
      (proxy [~sketch] []
-       (exitActual []
-         (proxy-super destroy)))))
+       (exitActual []))))
 
 (defn run
   "run sketch"

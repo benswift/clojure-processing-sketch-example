@@ -31,6 +31,7 @@
     (exitActual [])
     (switchToSketch [uid]
       (println "recieved" uid)
+      ;; this is where we should start up the requested sketch
       (proxy-super switchToSketch uid))))
 
 (def sketches

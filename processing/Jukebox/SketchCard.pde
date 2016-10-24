@@ -18,10 +18,12 @@ class SketchCard {
   boolean mouseOverCard(){
     return mouseDown && x < mouseX && y < mouseY && mouseX < x+thumbnail.width && mouseY < y+thumbnail.height;
   }
-    
-  void display(){
+
+  void display(float x, float y, float s){
     boolean over = mouseOverCard();
-    image(thumbnail, x, y);
+    float dw = this.width()*s;
+    float dh = this.height()*s;
+    image(thumbnail, x-dw/2, y-dh/2,dw,dh);
     if(over){
       switchToSketch(name);
     }

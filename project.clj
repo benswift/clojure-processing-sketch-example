@@ -8,6 +8,7 @@
                  [org.processing/core "3.2.1"]
                  [comp1720/tritonus_share "0.0.0-SNAPSHOT"]
                  [comp1720/jsminim "0.0.0-SNAPSHOT"]
+                 [comp1720/u4444444 "0.0.0-SNAPSHOT"]
                  [comp1720/u3333333 "0.0.0-SNAPSHOT"]
                  [comp1720/u2222222 "0.0.0-SNAPSHOT"]
                  [comp1720/Jukebox "0.0.0-SNAPSHOT"]

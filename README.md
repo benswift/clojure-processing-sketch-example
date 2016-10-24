@@ -41,10 +41,11 @@ fiddling or using the elisp helper functions in utils/exporter.el
 The process is:
 
 1. from Processing (either in the IDE or using the `processing-java`
-   command-line tool) export the sketch
+   command-line tool) export the sketches in the processing directory
 
 2. locate the jar files inside the
-   application.macosx/<SketchName>.app/Contents/Java/ directory
+   application.macosx/<SketchName>.app/Contents/Java/ directory for
+   each sketch
 
 3. using `lein localrepo` (or possibly the `mvn` CLI) install these
    jar files using comp1720 as the artifact-id and 0.0.0-SNAPSHOT as

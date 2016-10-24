@@ -6,7 +6,8 @@
 (defn -main [& args]
   (let [sleep-dur 2000]
     (doseq [sketch sk/sketches]
-      (sk/run-for-duration sketch sleep-dur)))
+      (sk/stop (sk/run ((:constructor sketch)))
+               sleep-dur)))
   (sk/run sk/jukebox-sketch)
   (Thread/sleep 10000)
   (println "done, bye!")

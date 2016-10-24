@@ -8,3 +8,10 @@ void draw() {
   float d = random(200);
   ellipse(random(width), random(height), d, d);
 }
+
+void keyPressed(){
+  if(key == 'S'){
+    println("taking screenshot...");
+    save("screenshot.png");
+  }
+}

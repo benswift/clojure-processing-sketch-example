@@ -23,4 +23,9 @@ void keyPressed(){
     player.pause();
   else
     player.loop();
+
+  if(key == 'S'){
+    println("taking screenshot...");
+    save("screenshot.png");
+  }
 }

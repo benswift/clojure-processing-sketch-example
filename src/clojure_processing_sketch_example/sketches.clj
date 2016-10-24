@@ -1,7 +1,7 @@
 (ns clojure-processing-sketch-example.sketches
   (:import processing.core.PApplet
            ;; specific sketches
-           Jukebox u1111111 u2222222 u3333333 u4444444))
+           u4444444))
 
 ;; keys should be [papplet time]
 (def current-sketch
@@ -25,20 +25,8 @@
            (touch-current-time)
            (proxy-super handleMouseEvent ~event-sym))))))
 
-(def ^{:doc "the applet for the \"Jukebox\" sketch selection screen"}
-  jukebox-sketch
-  (proxy [Jukebox] []
-    (exitActual [])
-    (switchToSketch [uid]
-      (println "recieved" uid)
-      ;; this is where we should start up the requested sketch
-      (proxy-super switchToSketch uid))))
-
 (def sketches
-  [{:uid "u1111111" :constructor (sketch-proxy u1111111) :weight 1}
-   {:uid "u2222222" :constructor (sketch-proxy u2222222) :weight 1}
-   {:uid "u3333333" :constructor (sketch-proxy u3333333) :weight 1}
-   {:uid "u4444444" :constructor (sketch-proxy u4444444) :weight 1}])
+  [{:uid "u4444444" :constructor (sketch-proxy u4444444) :weight 1}])
 
 (defn set-current
   [papplet]

@@ -3,7 +3,7 @@
   (:gen-class))
 
 (defn -main [& args]
-  (let [sleep-dur 2000]
+  (let [sleep-dur 5000]
     ;; (sk/stop (sk/run sk/jukebox-sketch) sleep-dur)
     (doseq [sketch sk/sketches]
       (sk/stop (sk/run ((:constructor sketch)))

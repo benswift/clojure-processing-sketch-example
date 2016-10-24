@@ -8,28 +8,11 @@ An example of running exported Processing sketches from Clojure.
 
 ### Quick version
 
-If you're on OSX (and maybe Linux - untested) with a modern Emacs,
-`processing-java` on your path, and an Internet connection, this
-should get you up and running:
-
-(I know the Emacs thing is a pain, but I'm sticking with the tools I
-know for the moment)
-
-**Step 1** (Terminal)
+assumes you've got leiningen (clojure project manager) installed
 
 ```
-git clone https://github.com/benswift/clojure-processing-sketch-example
-```
-
-**Step 2** (in Emacs)
-
-```
-M-x load-file RET utils/exporter.el RET
-```
-
-**Step 3** (in Terminal)
-
-```
+lein deps
+lein localrepo install processing/u4444444/application.macosx/u4444444.app/Contents/Java/u4444444.jar comp1720/u4444444 0.0.0-SNAPSHOT
 lein run
 ```
 

@@ -5,7 +5,7 @@
       (directory-files source-dir :full "^[^.].*[^.]$")
     (lambda (fname)
       (let* ((app-path (format "%s/application.macosx" fname))
-             (command (format "/usr/local/bin/processing-java --force --sketch=%s --export --platform=macosx --bits=64 --output=%s/export"
+             (command (format "processing-java --force --sketch=%s --export --platform=macosx --bits=64 --output=%s/export"
                               fname
                               fname)))
         (when (file-directory-p app-path)
@@ -43,7 +43,7 @@
   (export-sketches source-dir)
   (install-all-jars source-dir))
 
-(export-and-install "/Users/ben/Code/clojure/clojure-processing-sketch-example/processing")
+(export-and-install "processing")
 
 ;; this currently doesn't work - should point to the data folders next
 ;; to the .pde files, not in the src/sketches folder
@@ -59,4 +59,4 @@
             (write-file fname))
           (kill-buffer (current-buffer)))))))
 
-(munge-data-folder-paths "/Users/ben/Code/clojure/clojure-processing-sketch-example/src/sketches")
+;; (munge-data-folder-paths "/Users/ben/Code/clojure/clojure-processing-sketch-example/src/sketches")

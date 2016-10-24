@@ -6,48 +6,61 @@ An example of running exported Processing sketches from Clojure.
 
 ## Usage
 
+### Quick version
+
+If you're on OSX (and maybe Linux - untested) with a modern Emacs,
+`processing-java` on your path, and an Internet connection, this
+should get you up and running:
+
+(I know the Emacs thing is a pain, but I'm sticking with the tools I
+know for the moment)
+
+**Step 1** (Terminal)
+
+```
+git clone https://github.com/benswift/clojure-processing-sketch-example
+```
+
+**Step 2** (in Emacs)
+
+```
+M-x load-file RET utils/exporter.el RET
+```
+
+**Step 3** (in Terminal)
+
 ```
 lein run
 ```
 
-## Adding new sketches
+### Long version
 
-Currently, getting the sketches into Clojure involves a bit of manual
-fiddling (although hopefully this will be fully automated in the
-future). The process is:
+Currently, getting the sketches into Clojure involves either a bit of manual
+fiddling or using the elisp helper functions in utils/exporter.el
+
+The process is:
 
 1. from Processing (either in the IDE or using the `processing-java`
    command-line tool) export the sketch
-   
-2. find the `<SketchName>.java` in the exported application bundle,
-   and copy it into `src/sketches`
 
-3. import the sketch into the `clojure-processing-sketch-example.sketches`
-   namespace in `src/clojure_processing_sketch_example/sketches.clj`
+2. locate the jar files inside the
+   application.macosx/<SketchName>.app/Contents/Java/ directory
 
-4. profit?
+3. using `lein localrepo` (or possibly the `mvn` CLI) install these
+   jar files using comp1720 as the artifact-id and 0.0.0-SNAPSHOT as
+   the version
 
-## Alternative approaches
+4. ensure that these dependencies are referenced in the :dependencies
+   vector in project.clj
 
-There are a few ways this could be better, but I haven't got them
-working :(
-
-- load the exported sketch classes (and their dependencies) from the
-  jar file(s) created by the `processing-java --export` process, i.e.
-  don't require manually moving the `SketchName.java` file into the
-  `src/sketches` folder
+4. lein run
 
 ## TODO
 
-1. automate the generation of the java classes from the Processing
-   sketch folders---not sure exactly how to do this, but
-   `processing.mode.java.JavaBuild/preprocess()` looks promising...
-
-2. test to see if it works with sketches which have stuff in their
+1. fix problem with sketches not being able to find their data folder
    `data/` folder---where does that get exported to?
-   
-3. add a more sophisticated event loop than the sleepy `-main`
-   function
+
+2. add a more sophisticated event loop
 
 ## License
 

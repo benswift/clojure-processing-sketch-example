@@ -1,7 +1,7 @@
 (ns clojure-processing-sketch-example.sketches
   (:import processing.core.PApplet
            ;; specific sketches
-           Jukebox ExampleSketch RandomCircles MinimPlayPause))
+           Jukebox u1111111 u2222222 u3333333))
 
 ;; keys should be [papplet time]
 (def current-sketch
@@ -34,9 +34,9 @@
       (proxy-super switchToSketch uid))))
 
 (def sketches
-  [{:uid "u1papplet111111" :constructor (sketch-proxy ExampleSketch) :weight 1}
-   {:uid "u2papplet222222" :constructor (sketch-proxy RandomCircles) :weight 1}
-   {:uid "u3papplet333333" :constructor (sketch-proxy MinimPlayPause) :weight 1}])
+  [{:uid "u1111111" :constructor (sketch-proxy u1111111) :weight 1}
+   {:uid "u2222222" :constructor (sketch-proxy u2222222) :weight 1}
+   {:uid "u3333333" :constructor (sketch-proxy u3333333) :weight 1}])
 
 (defn set-current
   [papplet]

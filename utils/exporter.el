@@ -1,21 +1,17 @@
+(require 'dash)
+
 (defun export-sketches (source-dir dest-dir)
   (-each
       (directory-files source-dir :full "^[^.].*[^.]$")
     (lambda (fname)
-      (let ((app-path (format "%s/application.macosx" fname))
-            (sketch-name (file-name-nondirectory fname)))
+      (let ((app-path (format "%s/application.macosx" fname)))
         (when (file-directory-p app-path)
           (delete-directory app-path :recursive))
         (shell-command
          (format "/usr/local/bin/processing-java --force --sketch=%s --export"
-                 fname))
-        (copy-file (format "%s/source/%s.java" app-path sketch-name)
-                   (format "%s/%s.java" dest-dir sketch-name)
-                   :overwrite)))))
+                 fname))))))
 
 (export-sketches "/Users/ben/Code/clojure/clojure-processing-sketch-example/processing" "/Users/ben/Code/clojure/clojure-processing-sketch-example/src/sketches")
-
-(require 'dash)
 
 (defun find-jars (source-dir)
   (-uniq
@@ -47,7 +43,7 @@
 ;; to the .pde files, not in the src/sketches folder
 (defun munge-data-folder-paths (directory)
   (-each
-      (directory-files directory :full "java$")
+      (directory-files directory :full "pde$")
     (lambda (fname)
       (let ((data-path (format "%s/data/%s/" directory (file-name-nondirectory fname))))
         (with-current-buffer (find-file fname)

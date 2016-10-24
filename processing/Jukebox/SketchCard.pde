@@ -1,25 +1,28 @@
 class SketchCard {
   PImage thumbnail;
   String name;
+  float x, y;
 
-  SketchCard(String imagePath, int w, int h) {
+  SketchCard(String imagePath, float x, float y, int w, int h) {
     thumbnail = loadImage(imagePath);
     thumbnail.resize(w, h);
     name = imagePath;
+    this.x = x;
+    this.y = y;
   }
 
   void resize(int w, int h){
     thumbnail.resize(w, h);
   }
-  
-  void display(float x, float y){
+
+  boolean mouseOverCard(){
+    return mouseDown && x < mouseX && y < mouseY && mouseX < x+thumbnail.width && mouseY < y+thumbnail.height;
+  }
+    
+  void display(){
+    boolean over = mouseOverCard();
     image(thumbnail, x, y);
-    // should possibly do edge triggering
-    if(mouseDown &&
-       x < mouseX &&
-       y < mouseY &&
-       mouseX < x+thumbnail.width &&
-       mouseY < y+thumbnail.height){
+    if(over){
       switchToSketch(name);
     }
   }

@@ -22,10 +22,15 @@ ArrayList<String> filesInFolder(String folderPath) {
 void loadCards(){
   cards = new ArrayList<SketchCard>(100);
   ArrayList<String> files = filesInFolder(".");
-  for (String filename : files) {
-    cards.add(new SketchCard(filename,
-                             width/(files.size()),
-                             width/(int)(files.size()*1.6)));
+  int numFiles = files.size();
+  float cardWidth = width/numFiles;
+  float cardHeight = cardWidth/(2560.0/1440.0);
+  for (int i = 0; i < numFiles; i++) {
+        cards.add(new SketchCard(files.get(i),
+                                 i*cardWidth,
+                                 (height-cardHeight)/2.0,
+                                 (int)cardWidth,
+                                 (int)cardHeight));
   }
 }
 
@@ -41,9 +46,8 @@ void draw() {
   mouseDown = mousePressed && !pmouseDown;
   pmouseDown = mousePressed;
 
-  for (int i = 0; i < cards.size(); i++) {
-    SketchCard card = cards.get(i);
-    card.display(i*card.width(), (height-card.height())/2.0);
+  for (SketchCard card : cards) {
+    card.display();
   }
 }
 

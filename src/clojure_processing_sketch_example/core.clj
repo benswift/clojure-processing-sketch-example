@@ -7,9 +7,8 @@
   (let [sleep-dur 2000]
     (doseq [sketch sk/sketches]
       (sk/stop (sk/run ((:constructor sketch)))
-               sleep-dur)))
-  (sk/run sk/jukebox-sketch)
-  (Thread/sleep 10000)
+               sleep-dur))
+    (sk/stop (sk/run sk/jukebox-sketch) sleep-dur))
   (println "done, bye!")
   (System/exit 0))
 

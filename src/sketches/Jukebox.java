@@ -23,8 +23,10 @@ ArrayList<SketchCard> cards;
 public ArrayList<String> filesInFolder(String folderPath) {
   ArrayList<String> filesList = new ArrayList<String>();
   File file = new File(dataPath(folderPath));
+
   if(file != null){
     File[] files = file.listFiles();
+
     for (File f: files) {
       filesList.add(f.getAbsolutePath());
     }
@@ -35,11 +37,16 @@ public ArrayList<String> filesInFolder(String folderPath) {
 
 public void loadCards(){
   cards = new ArrayList<SketchCard>(100);
-  ArrayList<String> files = filesInFolder("/Users/ben/Code/clojure/clojure-processing-sketch-example/processing/Jukebox/data");
-  for (String filename : files) {
-    cards.add(new SketchCard(filename,
-                             width/(files.size()),
-                             width/(int)(files.size()*1.6f)));
+  ArrayList<String> files = filesInFolder(".");
+  int numFiles = files.size();
+  float cardWidth = width/numFiles;
+  float cardHeight = cardWidth/(2560.0f/1440.0f);
+  for (int i = 0; i < numFiles; i++) {
+        cards.add(new SketchCard(files.get(i),
+                                 i*cardWidth,
+                                 (height-cardHeight)/2.0f,
+                                 (int)cardWidth,
+                                 (int)cardHeight));
   }
 }
 
@@ -55,9 +62,8 @@ public void draw() {
   mouseDown = mousePressed && !pmouseDown;
   pmouseDown = mousePressed;
 
-  for (int i = 0; i < cards.size(); i++) {
-    SketchCard card = cards.get(i);
-    card.display(i*card.width(), (height-card.height())/2.0f);
+  for (SketchCard card : cards) {
+    card.display();
   }
 }
 
@@ -68,25 +74,28 @@ public void switchToSketch(String uid){
 class SketchCard {
   PImage thumbnail;
   String name;
+  float x, y;
 
-  SketchCard(String imagePath, int w, int h) {
+  SketchCard(String imagePath, float x, float y, int w, int h) {
     thumbnail = loadImage(imagePath);
     thumbnail.resize(w, h);
     name = imagePath;
+    this.x = x;
+    this.y = y;
   }
 
   public void resize(int w, int h){
     thumbnail.resize(w, h);
   }
-  
-  public void display(float x, float y){
+
+  public boolean mouseOverCard(){
+    return mouseDown && x < mouseX && y < mouseY && mouseX < x+thumbnail.width && mouseY < y+thumbnail.height;
+  }
+    
+  public void display(){
+    boolean over = mouseOverCard();
     image(thumbnail, x, y);
-    // should possibly do edge triggering
-    if(mouseDown &&
-       x < mouseX &&
-       y < mouseY &&
-       mouseX < x+thumbnail.width &&
-       mouseY < y+thumbnail.height){
+    if(over){
       switchToSketch(name);
     }
   }

@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-public class MinimPlayPause extends PApplet {
+public class u3333333 extends PApplet {
 
 
 
@@ -27,7 +27,7 @@ public void setup() {
   // create the minim object (necessary to use the library)
   minim = new Minim(this);
   
-  player = minim.loadFile("/Users/ben/Code/clojure/clojure-processing-sketch-example/processing/MinimPlayPause/data/gong.mp3");
+  player = minim.loadFile("/Users/ben/Code/clojure/clojure-processing-sketch-example/src/sketches/data/u3333333.java/gong.mp3");
   player.loop();
 }
 
@@ -41,10 +41,15 @@ public void keyPressed(){
     player.pause();
   else
     player.loop();
+
+  if(key == 'S'){
+    println("taking screenshot...");
+    save("screenshot.png");
+  }
 }
   public void settings() {  fullScreen(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "MinimPlayPause" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "u3333333" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

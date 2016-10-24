@@ -13,7 +13,7 @@
                    (format "%s/%s.java" dest-dir sketch-name)
                    :overwrite)))))
 
-(export-sketches "/Users/ben/Code/clojure/clojure-processing-sketch-example/processing" "/tmp/sketches")
+(export-sketches "/Users/ben/Code/clojure/clojure-processing-sketch-example/processing" "/Users/ben/Code/clojure/clojure-processing-sketch-example/src/sketches")
 
 (require 'dash)
 
@@ -43,4 +43,4 @@
             (write-file fname))
           (kill-buffer (current-buffer)))))))
 
-(munge-data-folder-paths "/tmp/sketches")
+(munge-data-folder-paths "/Users/ben/Code/clojure/clojure-processing-sketch-example/src/sketches")

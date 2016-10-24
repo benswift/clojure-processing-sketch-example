@@ -12,21 +12,28 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-public class ExampleSketch extends PApplet {
+public class u2222222 extends PApplet {
 
 public void setup() {
   
   noStroke();
-  fill(180);
 }
 
 public void draw() {
-  background(0);
-  ellipse(width/2, height/2, width*sin(frameCount*0.03f), height*sin(frameCount*0.043f));
+  fill(random(255), 50);
+  float d = random(200);
+  ellipse(random(width), random(height), d, d);
+}
+
+public void keyPressed(){
+  if(key == 'S'){
+    println("taking screenshot...");
+    save("screenshot.png");
+  }
 }
   public void settings() {  fullScreen(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "ExampleSketch" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "u2222222" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

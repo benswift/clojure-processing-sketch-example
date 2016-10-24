@@ -14,9 +14,16 @@
 
 (defmacro sketch-proxy
   [applet-subclass]
-  `(fn []
-     (proxy [~applet-subclass] []
-       (exitActual []))))
+  (let [event-sym (gensym "event")]
+    `(fn []
+       (proxy [~applet-subclass] []
+         (exitActual [])
+         (handleKeyEvent [~event-sym]
+           (touch-current-time)
+           (proxy-super handleKeyEvent ~event-sym))
+         (handleMouseEvent [~event-sym]
+           (touch-current-time)
+           (proxy-super handleMouseEvent ~event-sym))))))
 
 ;; (defmacro sketch-proxy
 ;;   [applet-subclass]

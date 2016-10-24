@@ -25,42 +25,6 @@
            (touch-current-time)
            (proxy-super handleMouseEvent ~event-sym))))))
 
-;; (defmacro sketch-proxy
-;;   [applet-subclass]
-;;   `(fn []
-;;      (proxy [~applet-subclass] []
-;;        (exitActual [])
-;;        (mousePressed []
-;;          (touch-current-time)
-;;          (proxy-super mouseClicked))
-;;        (mouseClicked []
-;;          (touch-current-time)
-;;          (proxy-super mouseClicked))
-;;        (mouseDragged []
-;;          (touch-current-time)
-;;          (proxy-super mouseDragged))
-;;        (mouseMoved []
-;;          (touch-current-time)
-;;          (proxy-super mouseMoved))
-;;        (mousePressed []
-;;          (touch-current-time)
-;;          (proxy-super mousePressed))
-;;        (mouseReleased []
-;;          (touch-current-time)
-;;          (proxy-super mouseReleased))
-;;        (mouseWheel []
-;;          (touch-current-time)
-;;          (proxy-super mouseWheel))
-;;        (keyPressed []
-;;          (touch-current-time)
-;;          (proxy-super keyPressed))
-;;        (keyReleased []
-;;          (touch-current-time)
-;;          (proxy-super keyReleased))
-;;        (keyTyped []
-;;          (touch-current-time)
-;;          (proxy-super keyTyped)))))
-
 (def ^{:doc "the applet for the \"Jukebox\" sketch selection screen"}
   jukebox-sketch
   (proxy [Jukebox] []

@@ -5,9 +5,10 @@
 (defn -main [& args]
   (let [sleep-dur 2000]
     ;; (sk/stop (sk/run sk/jukebox-sketch) sleep-dur)
-    (doseq [sketch sk/sketches]
-      (sk/exit-applet (sk/run-applet ((:constructor sketch)))
-               sleep-dur)))
+    (sk/start)
+    (Thread/sleep sleep-dur)
+    (sk/start)
+    (Thread/sleep sleep-dur))
   (println "done, bye!")
   (System/exit 0))
 

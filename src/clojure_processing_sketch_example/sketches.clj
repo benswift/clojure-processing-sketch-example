@@ -40,19 +40,6 @@
    {:uid "u3333333" :constructor (sketch-proxy u3333333) :weight 1}
    {:uid "u4444444" :constructor (sketch-proxy u4444444) :weight 1}])
 
-(defn set-current
-  [papplet]
-  (reset!
-   current-sketch
-   {:papplet papplet
-    :time (System/currentTimeMillis)}))
-
-(defn set-random
-  [uid]
-  (reset!
-   current-sketch
-   {:papplet (:constructor (rand-nth sketches))
-    :time (System/currentTimeMillis)}))
 
 (defn run-applet [papplet]
   (PApplet/runSketch
@@ -68,3 +55,37 @@
    ;; probably should check it hasn't already been exited before
    ;; calling exit?
    (exit-applet papplet)))
+
+(defn exit-applet-if-looping
+  [papplet]
+  (if (and papplet (.isLooping papplet))
+    (exit-applet papplet)))
+
+(defn current-papplet []
+  (:papplet @current-sketch))
+
+(defn start [uid]
+   (let [old-papplet (current-papplet)
+         new-papplet nil]
+     ;; (exit-applet-if-looping old-papplet)
+     ;; (run-applet new-papplet)
+     (reset!
+      current-sketch
+      {:papplet new-papplet
+       :time (System/currentTimeMillis)})))
+
+(defn sketch-for-uid [uid]
+  (first (filter  #(= (:uid %) uid) sketches)))
+
+(defn start
+  ([]
+   (start (->> sketches (map :uid) rand-nth)))
+  ([uid]
+   (let [old-papplet (current-papplet)
+         new-papplet ((:constructor (sketch-for-uid uid)))]
+     (exit-applet-if-looping old-papplet)
+     (run-applet new-papplet)
+     (reset!
+      current-sketch
+      {:papplet new-papplet
+       :time (System/currentTimeMillis)}))))

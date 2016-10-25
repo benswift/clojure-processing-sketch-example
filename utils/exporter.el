@@ -57,7 +57,7 @@
       (let ((data-path (format "%s/data/%s/" directory (file-name-nondirectory fname))))
         (with-current-buffer (find-file fname)
           (goto-char (point-min))
-          (while (re-search-forward "load\\(Image\\|File\\)(\"" nil :noerror)
+          (while (re-search-forward "load\\(Image\\|File\\|Strings\\|Font\\Shape\\|Table\\)([ ]*\"" nil :noerror)
             (insert data-path)
             (write-file fname))
           (kill-buffer (current-buffer)))))))

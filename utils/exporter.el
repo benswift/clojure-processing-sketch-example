@@ -14,7 +14,7 @@
         (shell-command command)))))
 
 (defun find-jars (source-dir)
-  (-uniq
+  (remove-duplicates
    (-mapcat
     (lambda (sketch-folder)
       (-filter
@@ -26,14 +26,15 @@
                                     "jogl-all-natives-macosx-universal.jar"
                                     "jogl-all.jar")))))
        (directory-files-recursively sketch-folder "jar$")))
-   
-    (directory-files source-dir "^\\(u[0-9]\\{7\\}\\|Jukebox\\)$"))))
+    (directory-files source-dir "^\\(u[0-9]\\{7\\}\\|Jukebox\\)$"))
+   :test (lambda (x y) (string= (file-name-nondirectory x)
+                           (file-name-nondirectory y)))))
 
 (defun install-jar (jar-path)
   (let ((command (format "lein localrepo install %s comp1720/%s 0.0.0-SNAPSHOT"
                          jar-path
                          (file-name-base jar-path))))
-    (message command)
+    (message "[comp1720/%s \"0.0.0-SNAPSHOT\"]" (file-name-base jar-path))
     (shell-command command)))
 
 (defun install-all-jars (source-dir)

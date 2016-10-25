@@ -54,17 +54,17 @@
    {:papplet (:constructor (rand-nth sketches))
     :time (System/currentTimeMillis)}))
 
-(defn run [papplet]
+(defn run-applet [papplet]
   (PApplet/runSketch
       (into-array String ["mysketch" "--present"])
     papplet)
   papplet)
 
-(defn stop
+(defn exit-applet
   ([papplet]
    (.exit papplet))
   ([papplet delay-ms]
    (Thread/sleep delay-ms)
    ;; probably should check it hasn't already been exited before
    ;; calling exit?
-   (.exit papplet)))
+   (exit-applet papplet)))

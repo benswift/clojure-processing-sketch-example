@@ -1,5 +1,5 @@
 (defproject clojure-processing-sketch-example "0.1.0-SNAPSHOT"
-  :description "manage exported processing sketches from Quil"
+  :description "manage exported processing sketches from clojure"
   :url "https://github.com/benswift/clojure-processing-sketch-example"
   :main clojure-processing-sketch-example.core
   :license {:name "Eclipse Public License"

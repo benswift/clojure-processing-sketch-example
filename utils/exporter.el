@@ -11,7 +11,9 @@
         (when (file-directory-p app-path)
           (delete-directory app-path :recursive))
         (message command)
-        (shell-command command)))))
+        (with-demoted-errors
+            "processing-java --export warning: %s"
+          (shell-command command))))))
 
 (defun find-jars (source-dir)
   (remove-duplicates
@@ -26,7 +28,7 @@
                                     "jogl-all-natives-macosx-universal.jar"
                                     "jogl-all.jar")))))
        (directory-files-recursively sketch-folder "jar$")))
-    (directory-files source-dir "^\\(u[0-9]\\{7\\}\\|Jukebox\\)$"))
+    (directory-files source-dir :full "^\\(u[0-9]\\{7\\}\\|Jukebox\\)$"))
    :test (lambda (x y) (string= (file-name-nondirectory x)
                            (file-name-nondirectory y)))))
 

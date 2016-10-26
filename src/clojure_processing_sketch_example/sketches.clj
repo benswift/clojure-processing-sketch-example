@@ -1,7 +1,6 @@
 (ns clojure-processing-sketch-example.sketches
-  (:import processing.core.PApplet
-           ;; specific sketches
-           Jukebox u1111111 u2222222 u3333333 u4444444))
+  (:import processing.core.PApplet Jukebox)
+  (:require [clojure.java.shell :refer [sh]]))
 
 (def sketches
   (atom []))

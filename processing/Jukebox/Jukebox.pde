@@ -31,8 +31,7 @@ void loadCards(){
   cards = new ArrayList<SketchCard>(100);
   ArrayList<String> files = filesInFolder("/usr/local/share/comp1720");
   int numFiles = files.size();
-  //float cardWidth = width/numFiles;
-  //float cardHeight = cardWidth/(2560.0/1440.0);
+
   for (int i = 0; i < numFiles; i++) {
         cards.add(new SketchCard(files.get(i),
                                  i*cardwidth,
@@ -48,7 +47,7 @@ void setup() {
   position = new PVector(0,0);
   direction = new PVector(0,1);
   center = new PVector(width/2,height/2);
-  mouse = new PVector(0,0);
+  mouse = new PVector(width/2,height/2);
 
   cardwidth = 240;
   cardheight = 140;
@@ -92,7 +91,7 @@ void draw() {
       
       float cardx = -cardwidth + Math.floorMod(floor(position.x),cardwidth) + x*cardwidth;
       float cardy = -cardheight + Math.floorMod(floor(position.y),cardheight)+y*cardheight;
-      float s = 12/ sqrt(158+ dist(cardx,cardy,mouseX,mouseY));
+      float s = 24/ sqrt(518+ dist(cardx,cardy,mouseX,mouseY));
       
       int nth = Math.floorMod(x - xacross - (y-xdown) * nacross,cards.size());
       

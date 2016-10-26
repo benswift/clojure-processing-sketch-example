@@ -36,7 +36,7 @@ class SketchCard {
       stroke(255,h);
       h = min(255, h + 10);
 
-      s = .8;
+      s = 1;
       
       if(mouseDown) {
         switchToSketch(name);
@@ -48,8 +48,17 @@ class SketchCard {
     float dw = this.width()*s;
     float dh = this.height()*s;
     image(thumbnail, x-dw/2, y-dh/2,dw,dh);
-    if (hover(x,y,s))
+    
+    stroke(255);
+    fill(0,0,200,140);
+    if (hover(x,y,s)) {
+      filter(ADD);
       rect(x-dw/2, y-dh/2,dw,dh);
+      
+      fill(255);
+
+      text("My fucking name", x - dh/2, y);
+    }
 
   }
   

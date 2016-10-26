@@ -60,6 +60,8 @@ The process is:
 
 - display names - Ben
 
+- trap Jukebox exits - Ben
+
 - idle timer - Kieran/Ben
 
 - apply late submission "updates" - Ben

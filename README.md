@@ -58,10 +58,21 @@ The process is:
 
 ## TODO
 
-1. fix problem with sketches not being able to find their data folder
-   `data/` folder---where does that get exported to?
+- display names
 
-2. add a more sophisticated event loop
+- idle timer
+
+- apply late submission "updates"
+
+- make sure all the student projects work!
+
+- get a list of libraries
+
+- jazz up the jukebox
+
+- launchd integration
+
+- scripted install
 
 ## License
 

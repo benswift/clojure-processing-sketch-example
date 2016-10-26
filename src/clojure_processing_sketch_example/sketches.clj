@@ -3,8 +3,6 @@
            ;; specific sketches
            Jukebox u1111111 u2222222 u3333333 u4444444))
 
-;; keys should be [papplet time]
-
 (def sketches
   (atom []))
 
@@ -37,11 +35,6 @@
    ;; calling exit?
    (exit-applet papplet)))
 
-(defn exit-applet-if-looping
-  [papplet]
-  (if (and papplet (.isLooping papplet))
-    (exit-applet papplet)))
-
 (defn sketch-for-uid [uid]
   (first (filter  #(= (:uid %) uid) @sketches)))
 
@@ -49,13 +42,12 @@
   ([]
    (start (->> @sketches (map :uid) rand-nth)))
   ([uid]
-   (let [old-papplet (current-papplet)
-         new-papplet ((:constructor (sketch-for-uid uid)))]
-     (and old-papplet (exit-applet old-papplet))
-     (run-applet new-papplet)
+   (let [old-papplet (current-papplet)]
+     ;; (when old-papplet
+     ;;   (.exit old-papplet))
      (reset!
       current-sketch
-      {:papplet new-papplet
+      {:papplet (run-applet ((:constructor (sketch-for-uid uid))))
        :time (System/currentTimeMillis)}))))
 
 (defn jukebox-proxy []
@@ -68,13 +60,12 @@
 
 (defn start-jukebox
   ([]
-   (let [old-papplet (current-papplet)
-         juke-papplet ((jukebox-proxy))]
-     (and old-papplet (exit-applet old-papplet))
-     (run-applet juke-papplet)
+   (let [old-papplet (current-papplet)]
+     ;; (when (current-papplet)
+     ;;   (.exit old-papplet))
      (reset!
       current-sketch
-      {:papplet juke-papplet
+      {:papplet (run-applet ((jukebox-proxy)))
        :time (System/currentTimeMillis)}))))
 
 (defmacro sketch-proxy
@@ -83,7 +74,9 @@
     `(fn []
        (proxy [~applet-subclass] []
          (exitActual []
-           (start-jukebox))
+           (println "recieved exitActual")
+           ;; (start-jukebox)
+           )
          (handleKeyEvent [~event-sym]
            (touch-current-time)
            (proxy-super handleKeyEvent ~event-sym))
@@ -102,8 +95,9 @@
   (reset! sketches
           [{:uid "u1111111" :constructor (sketch-proxy u1111111) :weight 1}
            {:uid "u2222222" :constructor (sketch-proxy u2222222) :weight 1}
-           {:uid "u3333333" :constructor (sketch-proxy u3333333) :weight 1}
-           {:uid "u4444444" :constructor (sketch-proxy u4444444) :weight 1}])
+           ;; {:uid "u3333333" :constructor (sketch-proxy u3333333) :weight 1}
+           ;; {:uid "u4444444" :constructor (sketch-proxy u4444444) :weight 1}
+           ])
   (reset! current-sketch
           {:papplet nil
            :time (System/currentTimeMillis)}))

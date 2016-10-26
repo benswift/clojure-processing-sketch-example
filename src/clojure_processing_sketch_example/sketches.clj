@@ -5,46 +5,24 @@
 
 ;; keys should be [papplet time]
 (def current-sketch
-  (atom {}))
+  (atom {:papplet nil
+         :time (System/currentTimeMillis)}))
+
+(defn current-papplet []
+  (:papplet @current-sketch))
+
+(defn current-idle-time []
+  (/ (- (System/currentTimeMillis) (:time @current-sketch)) 1000.0))
 
 (defn touch-current-time
   "'touch' sketch with current time"
   []
   (swap! current-sketch assoc :time (System/currentTimeMillis)))
 
-(defmacro sketch-proxy
-  [applet-subclass]
-  (let [event-sym (gensym "event")]
-    `(fn []
-       (proxy [~applet-subclass] []
-         (exitActual [])
-         (handleKeyEvent [~event-sym]
-           (touch-current-time)
-           (proxy-super handleKeyEvent ~event-sym))
-         (handleMouseEvent [~event-sym]
-           (touch-current-time)
-           (proxy-super handleMouseEvent ~event-sym))))))
-
-(def ^{:doc "the applet for the \"Jukebox\" sketch selection screen"}
-  jukebox-sketch
-  (proxy [Jukebox] []
-    (exitActual [])
-    (switchToSketch [uid]
-      (println "recieved" uid)
-      ;; this is where we should start up the requested sketch
-      (proxy-super switchToSketch uid))))
-
-(def sketches
-  [{:uid "u1111111" :constructor (sketch-proxy u1111111) :weight 1}
-   {:uid "u2222222" :constructor (sketch-proxy u2222222) :weight 1}
-   {:uid "u3333333" :constructor (sketch-proxy u3333333) :weight 1}
-   {:uid "u4444444" :constructor (sketch-proxy u4444444) :weight 1}])
-
-
 (defn run-applet [papplet]
   (PApplet/runSketch
       (into-array String ["mysketch" "--present"])
-    papplet)
+      papplet)
   papplet)
 
 (defn exit-applet
@@ -61,21 +39,47 @@
   (if (and papplet (.isLooping papplet))
     (exit-applet papplet)))
 
-(defn current-papplet []
-  (:papplet @current-sketch))
+(defn jukebox-proxy []
+  (fn []
+    (proxy [Jukebox] []
+      (exitActual [])
+      (switchToSketch [uid]
+        (start uid)))))
 
-(defn start [uid]
+(defn start-jukebox
+  ([]
    (let [old-papplet (current-papplet)
-         new-papplet nil]
-     ;; (exit-applet-if-looping old-papplet)
-     ;; (run-applet new-papplet)
+         juke-papplet ((jukebox-proxy))]
+     (and old-papplet (exit-applet old-papplet))
+     (run-applet juke-papplet)
      (reset!
       current-sketch
-      {:papplet new-papplet
-       :time (System/currentTimeMillis)})))
+      {:papplet juke-papplet
+       :time (System/currentTimeMillis)}))))
 
-(defn sketch-for-uid [uid]
-  (first (filter  #(= (:uid %) uid) sketches)))
+(defmacro sketch-proxy
+  [applet-subclass]
+  (let [event-sym (gensym "event")]
+    `(fn []
+       (proxy [~applet-subclass] []
+         (exitActual []
+           (start-jukebox))
+         (handleKeyEvent [~event-sym]
+           (touch-current-time)
+           (proxy-super handleKeyEvent ~event-sym))
+         (handleMouseEvent [~event-sym]
+           (touch-current-time)
+           (proxy-super handleMouseEvent ~event-sym))))))
+
+(def sketches
+  (atom []))
+[{:uid "u1111111" :constructor (sketch-proxy u1111111) :weight 1}
+ {:uid "u2222222" :constructor (sketch-proxy u2222222) :weight 1}
+ {:uid "u3333333" :constructor (sketch-proxy u3333333) :weight 1}
+ {:uid "u4444444" :constructor (sketch-proxy u4444444) :weight 1}]
+
+(def init-sketches
+  (reset! sketches))
 
 (defn start
   ([]
@@ -83,9 +87,19 @@
   ([uid]
    (let [old-papplet (current-papplet)
          new-papplet ((:constructor (sketch-for-uid uid)))]
-     (exit-applet-if-looping old-papplet)
+     (and old-papplet (exit-applet old-papplet))
      (run-applet new-papplet)
      (reset!
       current-sketch
       {:papplet new-papplet
        :time (System/currentTimeMillis)}))))
+
+(defn sketch-for-uid [uid]
+  (first (filter  #(= (:uid %) uid) sketches)))
+
+(defn gallery-loop [idle-time]
+  (loop []
+    (if (> (current-idle-time) idle-time)
+      (start))
+    (Thread/sleep 1000)
+    (recur)))

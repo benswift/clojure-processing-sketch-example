@@ -29,7 +29,7 @@ ArrayList<String> filesInFolder(String folderPath) {
 
 void loadCards(){
   cards = new ArrayList<SketchCard>(100);
-  ArrayList<String> files = filesInFolder(".");
+  ArrayList<String> files = filesInFolder("/Users/ben/Code/clojure/clojure-processing-sketch-example/processing/Jukebox/data/");
   int numFiles = files.size();
   //float cardWidth = width/numFiles;
   //float cardHeight = cardWidth/(2560.0/1440.0);
@@ -130,6 +130,4 @@ void draw() {
 }
 
 // this will be intercepted by the proxy class
-void switchToSketch(String uid){
-  println("switching to", uid);
-}
+void switchToSketch(String uid){}

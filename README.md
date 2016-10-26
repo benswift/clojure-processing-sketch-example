@@ -64,7 +64,7 @@ The process is:
 
 - make sure all the student projects work! - Ben
 
-- jazz up the jukebox (inc. display names, and non-interactive mode) - Kieran
+- jazz up the jukebox - Kieran
 
 - launchd integration - Ben
 

@@ -13,69 +13,70 @@ class SketchCard {
 
     // pull name and uid from screenshot path
     String[] m = match(imagePath, "(u[0-9][0-9][0-9][0-9][0-9][0-9][0-9])-?(.*)\\.png");
-    if(m!=null){
+    if (m!=null) {
       this.uid = m[1];
       this.name = m[2].replace('-', ' '); // even if this is the empty string that's ok
-    }
-    else{
+    } else {
       this.uid = "uXXXXXXX";
       println("no uid found in ", imagePath);
     }
   }
 
-  void resize(int w, int h){
+  void resize(int w, int h) {
     thumbnail.resize(w, h);
   }
 
-  void display(float x, float y, float s){
+  void display(float x, float y, float s) {
 
-    
-    if (hover(x,y,s)) {
+    if (hover(x, y, s) && !autoMode) {
       cursor(HAND);
       noFill();
       strokeWeight(2);
-      stroke(255,h);
+      stroke(255, h);
       h = min(255, h + 10);
 
       s = 1;
-      
-      if(mouseDown) {
+
+      if (mouseDown) {
         switchToSketch(uid);
+        opening = true;
+        currentDisplayname = name;
+        currentUID = uid;
       }
     } else {
-      h = max(0,h-10); // this will work when there is enough sketches to fill the screen
+      h = max(0, h-10); // this will work when there is enough sketches to fill the screen
     }
-    
+
     float dw = this.width()*s;
     float dh = this.height()*s;
-    image(thumbnail, x-dw/2, y-dh/2,dw,dh);
-    
+    image(thumbnail, x-dw/2, y-dh/2, dw, dh);
+
     //stroke(255);
-    fill(0,0,200,140);
-    if (hover(x,y,s)) {
+    fill(0, 0, 200, 140);
+    if (hover(x, y, s) && !autoMode) {
       filter(ADD);
-      rect(x-dw/2, y-dh/2,dw,dh);
-      
+      rect(x-dw/2, y-dh/2, dw, dh);
+
       fill(255);
+      textAlign(LEFT);
       textSize(20);
       text(name, x - dw/2 + 24, y + dh/2 - 48);
       textSize(14);
       text(uid, x - dw/2 + 24, y + dh/2 - 24);
+    }
   }
 
-  }
-  
   boolean hover(float x, float y, float s) {
     float dw = this.width()*s;
     float dh = this.height()*s;
     return mouseX >= x-dw/2 && mouseX < x-dw/2 + dw && mouseY >= y-dh/2 && mouseY < y-dh/2 + dh;
   }
 
-  float width(){
+  float width() {
     return thumbnail.width;
   }
 
-  float height(){
+  float height() {
     return thumbnail.height;
   }
 }

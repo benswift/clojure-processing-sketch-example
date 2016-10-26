@@ -3,12 +3,7 @@
   (:gen-class))
 
 (defn -main [& args]
-  (let [sleep-dur 2000]
-    ;; (sk/stop (sk/run sk/jukebox-sketch) sleep-dur)
-    (sk/start)
-    (Thread/sleep sleep-dur)
-    (sk/start)
-    (Thread/sleep sleep-dur))
-  (println "done, bye!")
+  ;; TODO just check if this'll work with no images
+  (sk/init)
+  (sk/gallery-loop 5)
   (System/exit 0))
-

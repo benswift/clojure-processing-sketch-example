@@ -42,13 +42,10 @@
   ([]
    (start (->> @sketches (map :uid) rand-nth)))
   ([uid]
-   (let [old-papplet (current-papplet)]
-     ;; (when old-papplet
-     ;;   (.exit old-papplet))
-     (reset!
-      current-sketch
-      {:papplet (run-applet ((:constructor (sketch-for-uid uid))))
-       :time (System/currentTimeMillis)}))))
+   (reset!
+    current-sketch
+    {:papplet (run-applet ((:constructor (sketch-for-uid uid))))
+     :time (System/currentTimeMillis)})))
 
 (defn jukebox-proxy []
   (fn []
@@ -60,13 +57,12 @@
 
 (defn start-jukebox
   ([]
-   (let [old-papplet (current-papplet)]
-     ;; (when (current-papplet)
-     ;;   (.exit old-papplet))
-     (reset!
-      current-sketch
-      {:papplet (run-applet ((jukebox-proxy)))
-       :time (System/currentTimeMillis)}))))
+   (reset!
+    current-sketch
+    {:papplet (run-applet ((jukebox-proxy)))
+     :time (System/currentTimeMillis)})))
+
+(def juke ((jukebox-proxy)))
 
 (defmacro sketch-proxy
   [applet-subclass]
@@ -86,18 +82,19 @@
 
 (defn gallery-loop [idle-time]
   (loop []
-    (if (> (current-idle-time) idle-time)
-      (start))
+    (when (> (current-idle-time) idle-time)
+      (.exit (current-papplet))
+      (if (instance? Jukebox (current-papplet))
+        (start)
+        (start-jukebox)))
     (Thread/sleep 1000)
     (recur)))
 
-(defn reset-sketches []
+(defn init []
   (reset! sketches
           [{:uid "u1111111" :constructor (sketch-proxy u1111111) :weight 1}
            {:uid "u2222222" :constructor (sketch-proxy u2222222) :weight 1}
            ;; {:uid "u3333333" :constructor (sketch-proxy u3333333) :weight 1}
            ;; {:uid "u4444444" :constructor (sketch-proxy u4444444) :weight 1}
            ])
-  (reset! current-sketch
-          {:papplet nil
-           :time (System/currentTimeMillis)}))
+  (start-jukebox))

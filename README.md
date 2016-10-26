@@ -68,8 +68,6 @@ The process is:
 
 - make sure all the student projects work! - Ben
 
-- get a list of libraries - Ben
-
 - jazz up the jukebox (inc. display names, and non-interactive mode) - Kieran
 
 - launchd integration - Ben

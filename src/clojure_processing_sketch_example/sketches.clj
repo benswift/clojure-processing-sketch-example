@@ -55,7 +55,7 @@
 
 (defn start-jukebox
   ([]
-   ((jukebox-proxy))
+   (run-papplet ((jukebox-proxy)))
    (swap! current-sketch assoc :time (System/currentTimeMillis))))
 
 (defn gallery-loop [idle-time]

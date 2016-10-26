@@ -33,7 +33,7 @@
    (Thread/sleep delay-ms)
    ;; probably should check it hasn't already been exited before
    ;; calling exit?
-   (exit-applet papplet)))
+   (.exit papplet)))
 
 (defn sketch-for-uid [uid]
   (first (filter  #(= (:uid %) uid) @sketches)))

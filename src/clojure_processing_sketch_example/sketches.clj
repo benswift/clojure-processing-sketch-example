@@ -41,14 +41,18 @@
 (defn jukebox-proxy []
   (fn []
     (proxy [Jukebox] []
-      (exitActual []
-        (println "jukebox recieved exitActual"))
       (switchToSketch [uid]
         (println "switching to " uid)
         (start uid))
       (handleKeyEvent [event]
         (touch-current-time)
-        (proxy-super handleKeyEvent event))
+        ;; Ctrl+Alt+Q to quit
+        ;; (when (and (= (.getKeyCode event) 157)
+        ;;            (.isControlDown event)
+        ;;            (.isAltDown event))
+        ;;   (kill-current)
+        ;;   (System/exit 0))
+        )
       (handleMouseEvent [event]
         (touch-current-time)
         (proxy-super handleMouseEvent event)))))

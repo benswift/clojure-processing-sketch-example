@@ -5,6 +5,7 @@ PVector position;
 PVector direction;
 PVector center;
 PVector mouse;
+PVector weight;
 
 int cardwidth;
 int cardheight;
@@ -45,6 +46,7 @@ void setup() {
   fullScreen();
 
   position = new PVector(0,0);
+  weight = new PVector(0,0);
   direction = new PVector(0,1);
   center = new PVector(width/2,height/2);
   mouse = new PVector(width/2,height/2);
@@ -61,10 +63,12 @@ void draw() {
   mouse.set(mouseX,mouseY);
   direction = center.copy();
   direction.sub(mouse);
-  if(direction.mag() < 100) direction.limit(0);
   direction.setMag(center.dist(mouse)/30);
-  direction.limit(40);
-  position.add(direction);
+  if (direction.mag() < 10) direction.setMag(0);
+  weight.add(direction);
+  weight.limit(80);
+  weight.mult(0.70);
+  position.add(weight);
 
   boolean anyHover = false;
 

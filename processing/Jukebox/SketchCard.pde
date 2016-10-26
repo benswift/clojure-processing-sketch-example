@@ -50,16 +50,18 @@ class SketchCard {
     float dh = this.height()*s;
     image(thumbnail, x-dw/2, y-dh/2,dw,dh);
     
-    stroke(255);
+    //stroke(255);
     fill(0,0,200,140);
     if (hover(x,y,s)) {
       filter(ADD);
       rect(x-dw/2, y-dh/2,dw,dh);
       
       fill(255);
-
-      text("My fucking name", x - dh/2, y);
-    }
+      textSize(20);
+      text(name, x - dw/2 + 24, y + dh/2 - 48);
+      textSize(14);
+      text(uid, x - dw/2 + 24, y + dh/2 - 24);
+  }
 
   }
   

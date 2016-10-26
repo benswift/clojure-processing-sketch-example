@@ -6,7 +6,6 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.processing/core "3.2.1"]
-                 [comp1720/Jukebox "0.0.0-SNAPSHOT"]
-                 [me.raynes/conch "0.8.0"]]
+                 [comp1720/Jukebox "0.0.0-SNAPSHOT"]]
   :java-source-paths ["src/sketches"]
   :plugins [[lein-localrepo "0.5.3"]])

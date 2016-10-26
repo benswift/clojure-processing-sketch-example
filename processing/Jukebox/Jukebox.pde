@@ -113,6 +113,4 @@ void draw() {
 }
 
 // this will be intercepted by the proxy class
-void switchToSketch(String uid){
-  println("switching to", uid);
-}
+void switchToSketch(String uid){}

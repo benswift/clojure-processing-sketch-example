@@ -39,7 +39,7 @@ class SketchCard {
       s = .8;
       
       if(mouseDown) {
-        switchToSketch(name);
+        switchToSketch(uid);
       }
     } else {
       h = max(0,h-10); // this will work when there is enough sketches to fill the screen

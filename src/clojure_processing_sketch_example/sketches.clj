@@ -53,7 +53,13 @@
       (exitActual [])
       (switchToSketch [uid]
         (println "switching to " uid)
-        (start uid)))))
+        (start uid))
+      (handleKeyEvent [event]
+        (touch-current-time)
+        (proxy-super handleKeyEvent event))
+      (handleMouseEvent [event]
+        (touch-current-time)
+        (proxy-super handleMouseEvent event)))))
 
 (defn start-jukebox
   ([]

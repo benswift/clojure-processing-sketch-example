@@ -29,7 +29,7 @@ ArrayList<String> filesInFolder(String folderPath) {
 
 void loadCards(){
   cards = new ArrayList<SketchCard>(100);
-  ArrayList<String> files = filesInFolder("/Users/ben/Code/clojure/clojure-processing-sketch-example/processing/Jukebox/data/");
+  ArrayList<String> files = filesInFolder("/usr/local/share/comp1720");
   int numFiles = files.size();
   //float cardWidth = width/numFiles;
   //float cardHeight = cardWidth/(2560.0/1440.0);

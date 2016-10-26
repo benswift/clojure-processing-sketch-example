@@ -41,14 +41,18 @@
 (defn jukebox-proxy []
   (fn []
     (proxy [Jukebox] []
-      (exitActual []
-        (println "jukebox recieved exitActual"))
       (switchToSketch [uid]
         (println "switching to " uid)
         (start uid))
       (handleKeyEvent [event]
         (touch-current-time)
-        (proxy-super handleKeyEvent event))
+        ;; Ctrl+Alt+Q to quit
+        ;; (when (and (= (.getKeyCode event) 157)
+        ;;            (.isControlDown event)
+        ;;            (.isAltDown event))
+        ;;   (kill-current)
+        ;;   (System/exit 0))
+        )
       (handleMouseEvent [event]
         (touch-current-time)
         (proxy-super handleMouseEvent event)))))
@@ -69,8 +73,7 @@
 (defn init []
   (reset! sketches
           [{:uid "u1111111" :weight 1}
-           {:uid "u3333333" :weight 1}
            {:uid "u2222222" :weight 1}
-           {:uid "u4444444" :weight 1}])
-  (reset! current-sketch {:uid nil :time (System/currentTimeMillis)})
+           {:uid "u3333333" :weight 1}])
+  (reset! current-sketch {:uid "uXXXXXXX" :time (System/currentTimeMillis)})
   (start-jukebox))

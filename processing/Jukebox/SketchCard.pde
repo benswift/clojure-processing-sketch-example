@@ -11,11 +11,12 @@ class SketchCard {
     this.x = x;
     this.y = y;
 
-    // string munging
-    this.name = imagePath;
-    String[] m = match(imagePath, "(u[0-9][0-9][0-9][0-9][0-9][0-9][0-9]).png");
-    if(m!=null)
+    // pull name and uid from screenshot path
+    String[] m = match(imagePath, "(u[0-9][0-9][0-9][0-9][0-9][0-9][0-9])-?(.*)\\.png");
+    if(m!=null){
       this.uid = m[1];
+      this.name = m[2].replace('-', ' '); // even if this is the empty string that's ok
+    }
     else{
       this.uid = "uXXXXXXX";
       println("no uid found in ", imagePath);
@@ -39,7 +40,7 @@ class SketchCard {
       s = 1;
       
       if(mouseDown) {
-        switchToSketch(name);
+        switchToSketch(uid);
       }
     } else {
       h = max(0,h-10); // this will work when there is enough sketches to fill the screen

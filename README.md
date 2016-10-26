@@ -58,15 +58,11 @@ The process is:
 
 ## TODO
 
-- display names - Ben
-
 - idle timer - Kieran/Ben
 
 - apply late submission "updates" - Ben
 
 - make sure all the student projects work! - Ben
-
-- get a list of libraries - Ben
 
 - jazz up the jukebox (inc. display names, and non-interactive mode) - Kieran
 

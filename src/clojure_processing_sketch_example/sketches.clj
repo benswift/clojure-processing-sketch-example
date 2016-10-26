@@ -20,13 +20,13 @@
   []
   (swap! current-sketch assoc :time (System/currentTimeMillis)))
 
-(defn run-applet [papplet]
+(defn run-papplet [papplet]
   (PApplet/runSketch
       (into-array String ["mysketch" "--present"])
       papplet)
   papplet)
 
-(defn exit-applet
+(defn exit-papplet
   ([papplet]
    (.exit papplet))
   ([papplet delay-ms]
@@ -44,7 +44,7 @@
   ([uid]
    (reset!
     current-sketch
-    {:papplet (run-applet ((:constructor (sketch-for-uid uid))))
+    {:papplet (run-papplet ((:constructor (sketch-for-uid uid))))
      :time (System/currentTimeMillis)})))
 
 (defn jukebox-proxy []
@@ -65,16 +65,16 @@
   ([]
    (reset!
     current-sketch
-    {:papplet (run-applet ((jukebox-proxy)))
+    {:papplet (run-papplet ((jukebox-proxy)))
      :time (System/currentTimeMillis)})))
 
 (def juke ((jukebox-proxy)))
 
 (defmacro sketch-proxy
-  [applet-subclass]
+  [papplet-subclass]
   (let [event-sym (gensym "event")]
     `(fn []
-       (proxy [~applet-subclass] []
+       (proxy [~papplet-subclass] []
          (exitActual []
            (println "recieved exitActual")
            ;; (start-jukebox)

@@ -50,7 +50,8 @@
 (defn jukebox-proxy []
   (fn []
     (proxy [Jukebox] []
-      (exitActual [])
+      (exitActual []
+        (println "jukebox recieved exitActual"))
       (switchToSketch [uid]
         (println "switching to " uid)
         (start uid))
@@ -76,9 +77,8 @@
     `(fn []
        (proxy [~papplet-subclass] []
          (exitActual []
-           (println "recieved exitActual")
-           ;; (start-jukebox)
-           )
+           (println "sketch recieved exitActual")
+           (start-jukebox))
          (handleKeyEvent [~event-sym]
            (touch-current-time)
            (proxy-super handleKeyEvent ~event-sym))
@@ -90,9 +90,12 @@
   (loop []
     (when (> (current-idle-time) idle-time)
       (.exit (current-papplet))
-      (if (instance? Jukebox (current-papplet))
+      (if (instance? Jukebox 
+                     (current-papplet))
         (start)
-        (start-jukebox)))
+        (do
+          (.exit (current-papplet))
+          (start-jukebox))))
     (Thread/sleep 1000)
     (recur)))
 

@@ -69,8 +69,7 @@
 (defn init []
   (reset! sketches
           [{:uid "u1111111" :weight 1}
-           {:uid "u3333333" :weight 1}
            {:uid "u2222222" :weight 1}
-           {:uid "u4444444" :weight 1}])
+           {:uid "u3333333" :weight 1}])
   (reset! current-sketch {:uid nil :time (System/currentTimeMillis)})
   (start-jukebox))

@@ -58,21 +58,21 @@ The process is:
 
 ## TODO
 
-- display names
+- display names - Ben
 
-- idle timer
+- idle timer - Kieran/Ben
 
-- apply late submission "updates"
+- apply late submission "updates" - Ben
 
-- make sure all the student projects work!
+- make sure all the student projects work! - Ben
 
-- get a list of libraries
+- get a list of libraries - Ben
 
-- jazz up the jukebox
+- jazz up the jukebox (inc. display names, and non-interactive mode) - Kieran
 
-- launchd integration
+- launchd integration - Ben
 
-- scripted install
+- scripted install - Ben
 
 ## License
 

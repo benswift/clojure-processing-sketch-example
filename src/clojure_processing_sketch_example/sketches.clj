@@ -32,7 +32,7 @@
   ([]
    (start (->> @sketches (map :uid) rand-nth)))
   ([uid]
-   (sh "tmux" "new" "-ds" "current-sketch" "processing-java" (str "--sketch=" (System/getProperty "user.dir") "/processing/" uid))
+   (sh "tmux" "new" "-ds" "current-sketch" "processing-java" (str "--sketch=" (System/getProperty "user.dir") "/processing/" uid) "--present")
    (reset!
     current-sketch
     {:uid uid
